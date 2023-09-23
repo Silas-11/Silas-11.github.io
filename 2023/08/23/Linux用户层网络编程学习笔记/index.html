@@ -4,8 +4,18 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, Silas">
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex">
+    <meta name="keywords" content="Linux用户层网络编程学习笔记之计算机网络相关知识, Silas">
+    <meta name="description" content="1、MAC地址、IP地址以及ARP协议
+MAC地址
+
+使用点对点信道的数据链路层不需要使用地址
+使用广播信道的数据链路层必须使用地址来区分各主机
+
+
+
+广播信道的数据链路层必须使用地址（MAC）
+
+MAC地址又称为硬件地址或物理地址。请注意">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +27,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hello World | Silas</title>
+    <title>Linux用户层网络编程学习笔记之计算机网络相关知识 | Silas</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -334,12 +344,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hello World</h1>
+                    <h1 class="description center-align post-title">Linux用户层网络编程学习笔记之计算机网络相关知识</h1>
                 </div>
             </div>
         </div>
@@ -375,7 +385,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-09-21
+                    2023-08-23
                 </div>
                 
 
@@ -396,19 +406,136 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+                <h1 id="1、MAC地址、IP地址以及ARP协议"><a href="#1、MAC地址、IP地址以及ARP协议" class="headerlink" title="1、MAC地址、IP地址以及ARP协议"></a>1、MAC地址、IP地址以及ARP协议</h1><p><img src="https://s2.loli.net/2023/09/23/aQLZXWErzGe2A4f.png" alt="image-20201014222831663"></p>
+<h2 id="MAC地址"><a href="#MAC地址" class="headerlink" title="MAC地址"></a>MAC地址</h2><blockquote>
+<ul>
+<li>使用点对点信道的数据链路层不需要使用地址</li>
+<li>使用广播信道的数据链路层必须使用地址来区分各主机</li>
+</ul>
+</blockquote>
+<p><img src="https://s2.loli.net/2023/09/23/lhmyWwIF3uGbsZ9.png" alt="image-20201014223659993"></p>
+<h3 id="广播信道的数据链路层必须使用地址（MAC）"><a href="#广播信道的数据链路层必须使用地址（MAC）" class="headerlink" title="广播信道的数据链路层必须使用地址（MAC）"></a>广播信道的数据链路层必须使用地址（MAC）</h3><p><img src="https://s2.loli.net/2023/09/23/a6vEYzVWfAOwd73.png" alt="image-20201014224732019"></p>
+<blockquote>
+<p><strong>MAC地址又称为硬件地址或物理地址</strong>。请注意：不要被 “物理” 二字误导认为物理地址属于物理层范畴，物理地址属于数据链路层范畴</p>
+</blockquote>
+<h3 id="IEEE-802局域网的MAC地址格式"><a href="#IEEE-802局域网的MAC地址格式" class="headerlink" title="IEEE 802局域网的MAC地址格式"></a>IEEE 802局域网的MAC地址格式</h3><p><img src="https://s2.loli.net/2023/09/23/GdkE21OQxZ6iKrp.png" alt="image-20201014225358570"></p>
+<blockquote>
+<p><strong>组织唯一标识符OUI</strong></p>
+<ul>
+<li>生产网络设备的厂商，需要向IEEE的注册管理机构申请一个或多个OUI</li>
+</ul>
+<p><strong>网络接口标识符</strong></p>
+<ul>
+<li>由获得OUI的厂商自行随意分配</li>
+</ul>
+<p><strong>EUI-48</strong></p>
+<ul>
+<li>48是这个MAC地址的位数</li>
+</ul>
+</blockquote>
+<p><img src="https://s2.loli.net/2023/09/23/xIqNmoi42XFrPjl.png" alt="image-20201014230248959"></p>
+<blockquote>
+<p>对于使用EUI-48空间的应用程序，IEEE的目标寿命为100年（直到2080年），但是鼓励采用EUI-64作为替代</p>
+</blockquote>
+<p><strong>关于无效的 MAC 帧</strong></p>
+<ul>
+<li>数据字段的长度与长度字段的值不一致；</li>
+<li>帧的长度不是整数个字节；</li>
+<li>用收到的帧检验序列 FCS 查出有差错；</li>
+<li>数据字段的长度不在 46 ~ 1500 字节之间。</li>
+<li>有效的 MAC 帧长度为 64 ~ 1518 字节之间。</li>
+</ul>
+<blockquote>
+<p><strong>对于检查出的无效</strong> <strong>MAC</strong> <strong>帧就简单地丢弃。以太网不负责重传丢弃的帧。</strong> </p>
+</blockquote>
+<h3 id="IEEE-802局域网的MAC地址发送顺序"><a href="#IEEE-802局域网的MAC地址发送顺序" class="headerlink" title="IEEE 802局域网的MAC地址发送顺序"></a>IEEE 802局域网的MAC地址发送顺序</h3><p><img src="https://s2.loli.net/2023/09/23/THLgZ5tvMA6SaXb.png" alt="image-20201014230625182"></p>
+<h3 id="单播MAC地址举例"><a href="#单播MAC地址举例" class="headerlink" title="单播MAC地址举例"></a>单播MAC地址举例</h3><p><img src="https://s2.loli.net/2023/09/23/WKzSGRXdB7JeClh.png" alt="image-20201014230822305"></p>
+<blockquote>
+<p>主机B给主机C发送<strong>单播帧</strong>，主机B首先要构建该<strong>单播帧</strong>，<strong>在帧首部中的目的地址字段填入主机C的MAC地址</strong>，源地址字段填入自己的MAC地址，再加上帧首部的其他字段、数据载荷以及帧尾部，就构成了该<strong>单播帧</strong></p>
+</blockquote>
+<p><img src="https://s2.loli.net/2023/09/23/7UfYLZvtok2rxGy.png" alt="image-20201014231244655"></p>
+<blockquote>
+<p>主机B将该<strong>单播帧</strong>发送出去，主机A和C都会收到该<strong>单播帧</strong></p>
+<p>主机A的网卡发现该<strong>单播帧</strong>的目的MAC地址与自己的MAC地址不匹配，丢弃该帧</p>
+<p>主机C的网卡发现该<strong>单播帧</strong>的目的MAC地址与自己的MAC地址匹配，接受该帧</p>
+<p>并将该帧交给其上层处理</p>
+</blockquote>
+<h3 id="广播MAC地址举例"><a href="#广播MAC地址举例" class="headerlink" title="广播MAC地址举例"></a>广播MAC地址举例</h3><p><img src="https://s2.loli.net/2023/09/23/jwykW6TIKFQEc3U.png" alt="image-20201014231754669"></p>
+<blockquote>
+<p>假设主机B要发送一个<strong>广播帧</strong>，主机B首先要构建该<strong>广播帧</strong>，<strong>在帧首部中的目的地址字段填入广播地址</strong>，也就是十六进制的全F，源地址字段填入自己的MAC地址，再加上帧首部中的其他字段、数据载荷以及帧尾部，就构成了该<strong>广播帧</strong></p>
+</blockquote>
+<p><img src="https://s2.loli.net/2023/09/23/tgXuSwl3E5MjVOm.png" alt="image-20201014232132424"></p>
+<blockquote>
+<p>主机B讲该<strong>广播帧</strong>发送出去，主机A和C都会收到该<strong>广播帧</strong>，<strong>发现该帧首部中的目的地址字段的内容是广播地址</strong>，就知道该帧是<strong>广播帧</strong>，主机A和主机C都接受该帧，并将该帧交给上层处理</p>
+</blockquote>
+<h3 id="多播MAC地址举例"><a href="#多播MAC地址举例" class="headerlink" title="多播MAC地址举例"></a>多播MAC地址举例</h3><p><img src="https://s2.loli.net/2023/09/23/UA23w4oxKLsb5fu.png" alt="image-20201014232714791"></p>
+<blockquote>
+<p>假设主机A要发送<strong>多播帧</strong>给该<strong>多播地址</strong>。将该<strong>多播地址</strong>的左起第一个字节写成8个比特，第一个字节的最低比特位是1，这就表明该地址是<strong>多播地址</strong>。</p>
+<p>快速判断地址是不是<strong>多播地址</strong>，就是上图所示箭头所指的第十六进制数不能整除2（1,3,5,7,9,B,D,F），则该地址是<strong>多播地址</strong></p>
+<p>假设主机B，C和D支持多播，各用户给自己的主机配置多播组列表<strong>如下所示</strong></p>
+</blockquote>
+<p><img src="https://s2.loli.net/2023/09/23/aUs4V2iwBe6W3DM.png" alt="image-20201015001243584"></p>
+<blockquote>
+<p>主机B属于两个多播组，主机C也属于两个多播组，而主机D不属于任何多播组</p>
+</blockquote>
+<p><img src="J:/Computer-Network-Notes-master/计算机网络第三章（数据链路层）.assets/image-20201015001535528.png" alt="image-20201015001535528"></p>
+<blockquote>
+<p>主机A首先要构建该<strong>多播帧</strong>，<strong>在帧首部中的目的地址字段填入该多播地址</strong>，源地址点填入自己的MAC地址，再加上帧首部中的其他字段、数据载荷以及帧尾部，就构成了该<strong>多播帧</strong></p>
+</blockquote>
+<p><img src="https://s2.loli.net/2023/09/23/p1nzOjo7eBdVrKa.png" alt="image-20201015002054876"></p>
+<blockquote>
+<p>主机A将该<strong>多播帧</strong>发送出去，主机B、C、D都会收到该<strong>多播帧</strong></p>
+<p><strong>主机B和C发现该多播帧的目的MAC地址在自己的多播组列表中</strong>，主机B和C都会接受该帧</p>
+<p>主机D发现该<strong>多播帧</strong>的目的MAC地址不在自己得多播组列表中，则丢弃该<strong>多播帧</strong></p>
+</blockquote>
+<blockquote>
+<p>给主机配置多播组列表进行私有应用时，不得使用公有的标准多播地址</p>
+</blockquote>
+<h2 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h2><p>IP地址属于网络层的范畴，不属于数据链路层的范畴</p>
+<p>下面内容讲的是IP地址的使用，详细的IP地址内容在网络层中介绍</p>
+<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p><img src="https://s2.loli.net/2023/09/23/mDXiKnjRcyWEtNz.png" alt="image-20201015104441580"></p>
+<h3 id="从网络体系结构看IP地址与MAC地址"><a href="#从网络体系结构看IP地址与MAC地址" class="headerlink" title="从网络体系结构看IP地址与MAC地址"></a>从网络体系结构看IP地址与MAC地址</h3><p><img src="https://s2.loli.net/2023/09/23/2yWU5XpCnsADSvY.png" alt="image-20201015104913755"></p>
+<h3 id="数据包转发过程中IP地址与MAC地址的变化情况"><a href="#数据包转发过程中IP地址与MAC地址的变化情况" class="headerlink" title="数据包转发过程中IP地址与MAC地址的变化情况"></a>数据包转发过程中IP地址与MAC地址的变化情况</h3><p>图上各主机和路由器各接口的IP地址和MAC地址用简单的标识符来表示</p>
+<p><img src="https://s2.loli.net/2023/09/23/ge1Ut5Q6JCKANvb.png" alt="image-20201015105455043"></p>
+<p><img src="J:/Computer-Network-Notes-master/计算机网络第三章（数据链路层）.assets/image-20210103212224961.png" alt="image-20210103212224961"></p>
+<blockquote>
+<p>如何从IP地址找出其对应的MAC地址？</p>
+<p>ARP协议</p>
+</blockquote>
+<h2 id="ARP协议"><a href="#ARP协议" class="headerlink" title="ARP协议"></a>ARP协议</h2><p>如何从IP地址找出其对应的MAC地址？</p>
+<p>ARP（地址解析协议）</p>
+<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><p><img src="https://s2.loli.net/2023/09/23/ueB9v8oli6LN2bS.png" alt="image-20201015113826197"></p>
+<p>ARP高速缓存表</p>
+<p><img src="https://s2.loli.net/2023/09/23/Je6M4scFpG9aHZB.png" alt="image-20201015114052206"></p>
+<blockquote>
+<p>当主机B要给主机C发送数据包时，会首先在自己的ARP高速缓存表中查找主机C的IP地址所对应的MAC地址，但未找到，因此，主机B需要发送ARP请求报文，来获取主机C的MAC地址</p>
+</blockquote>
+<p><img src="https://s2.loli.net/2023/09/23/jvZeHTE21Fk9yDf.png" alt="image-20201015114444263"></p>
+<blockquote>
+<p>ARP请求报文有具体的格式，上图的只是简单描述</p>
+<p>ARP请求报文被封装在MAC帧中发送，目的地址为广播地址</p>
+<p>主机B发送封装有ARP请求报文的广播帧，总线上的其他主机都能收到该广播帧</p>
+</blockquote>
+<p><img src="https://s2.loli.net/2023/09/23/hFLq8XfRowCgaNs.png" alt="image-20201015114811501"></p>
+<blockquote>
+<p>收到ARP请求报文的主机A和主机C会把ARP请求报文交给上层的ARP进程</p>
+<p>主机A发现所询问的IP地址不是自己的IP地址，因此不用理会</p>
+<p>主机C的发现所询问的IP地址是自己的IP地址，需要进行相应</p>
+</blockquote>
+<p><img src="https://s2.loli.net/2023/09/23/ByAoq64DV2dXuEC.png" alt="image-20201015115212170"></p>
+<p><img src="https://s2.loli.net/2023/09/23/EfUPHSG1Q5yxk9s.png" alt="image-20201015115236673"></p>
+<p><img src="https://s2.loli.net/2023/09/23/WgF1ZNlPcMv8JIz.png" alt="image-20201015115252972"></p>
+<p>动态与静态的区别</p>
+<p><img src="https://s2.loli.net/2023/09/23/x3v1I7k4AntmqU5.png" alt="image-20201015115831543"></p>
+<p><strong>ARP协议只能在一段链路或一个网络上使用，而不能跨网络使用</strong></p>
+<p><img src="https://s2.loli.net/2023/09/23/3Oy7qtLbeKR9u4Q.png" alt="image-20201015120108028"></p>
+<blockquote>
+<p>ARP协议的使用是逐段链路进行的</p>
+</blockquote>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><img src="https://s2.loli.net/2023/09/23/zogeHNFKrm2wBfM.png" alt="image-20201015120707150"></p>
+<blockquote>
+<p>ARP表中的IP地址与MAC地址的对应关系记录，是<strong>会定期自动删除的</strong>，<strong>因为IP地址与MAC地址的对应关系不是永久性的</strong></p>
+</blockquote>
 
                 
             </div>
@@ -435,7 +562,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2023/09/21/hello-world/">http://example.com/2023/09/21/hello-world/</a>
+                    <a href="http://example.com/2023/08/23/Linux%E7%94%A8%E6%88%B7%E5%B1%82%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">http://example.com/2023/08/23/Linux%E7%94%A8%E6%88%B7%E5%B1%82%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -553,13 +680,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/09/21/second-blog/">
+                <a href="/2023/09/21/hello-world/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="second-blog">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
                         
-                        <span class="card-title">second-blog</span>
+                        <span class="card-title">Hello World</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -587,7 +714,7 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
             </div>
             <div class="card">
                 <a href="/2023/08/23/Linux%E7%94%A8%E6%88%B7%E5%B1%82%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
@@ -617,6 +744,7 @@
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
