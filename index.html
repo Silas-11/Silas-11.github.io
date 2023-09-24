@@ -186,58 +186,6 @@
     
   </li>
   
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="" class="waves-effect waves-light">
-
-      
-      <i class="fas fa-list" style="zoom: 0.6;"></i>
-      
-      <span>Medias</span>
-      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
-    </a>
-    <ul class="sub-nav menus_item_child ">
-      
-      <li>
-        <a href="/musics">
-          
-          <i class="fas fa-music" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>Musics</span>
-        </a>
-      </li>
-      
-      <li>
-        <a href="/movies">
-          
-          <i class="fas fa-film" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>Movies</span>
-        </a>
-      </li>
-      
-      <li>
-        <a href="/books">
-          
-          <i class="fas fa-book" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>Books</span>
-        </a>
-      </li>
-      
-      <li>
-        <a href="/galleries">
-          
-          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>Galleries</span>
-        </a>
-      </li>
-      
-    </ul>
-    
-  </li>
-  
   <li>
     <a href="#searchModal" class="modal-trigger waves-effect waves-light">
       <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
@@ -344,61 +292,6 @@
           
         </li>
         
-        <li class="m-nav-item">
-	  
-		<a href="javascript:;">
-			
-				<i class="fa-fw fas fa-list"></i>
-			
-			Medias
-			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
-		</a>
-            <ul  style="background:  ;" >
-              
-                <li>
-
-                  <a href="/musics " style="margin-left:75px">
-				  
-				   <i class="fa fas fa-music" style="position: absolute;left:50px" ></i>
-			      
-		          <span>Musics</span>
-                  </a>
-                </li>
-              
-                <li>
-
-                  <a href="/movies " style="margin-left:75px">
-				  
-				   <i class="fa fas fa-film" style="position: absolute;left:50px" ></i>
-			      
-		          <span>Movies</span>
-                  </a>
-                </li>
-              
-                <li>
-
-                  <a href="/books " style="margin-left:75px">
-				  
-				   <i class="fa fas fa-book" style="position: absolute;left:50px" ></i>
-			      
-		          <span>Books</span>
-                  </a>
-                </li>
-              
-                <li>
-
-                  <a href="/galleries " style="margin-left:75px">
-				  
-				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
-			      
-		          <span>Galleries</span>
-                  </a>
-                </li>
-              
-            </ul>
-          
-        </li>
-        
         
         <li><div class="divider"></div></li>
         <li>
@@ -491,7 +384,7 @@
                 
             </div>
 
-            <div class="description center-align">
+            <!-- <div class="description center-align">
                 
                 <span id="subtitle"></span>
                 <script src="/libs/typed/typed.js"></script>
@@ -522,7 +415,49 @@
                     });
                 </script>
                 
+            </div> -->
+            <!-- 开始一个带有CSS类的<div>元素 -->
+            <div class="description center-align">
+                
+                <!-- 如果启用了副标题，创建一个<span>元素，用于显示动态内容 -->
+                <span id="subtitle"></span>
+                <!-- 包含外部JavaScript文件，构建URL时使用了theme.jsDelivr.url和theme.libs.js.typed -->
+                <script src="/libs/typed/typed.js"></script>
+                <script>
+                    // 初始化Typed.js效果
+                    var typed = new Typed("#subtitle", {
+                        strings: [ 
+                            
+                                "从来没有真正的绝境, 只有心灵的迷途",
+                            
+                                "Never really desperate, only the lost of the soul",
+                            
+                                "真经一句话，假经传万卷！",
+                            
+                                "太阳底下从无新鲜事！",
+                            
+                                "人的一切痛苦,都是源于对自己无能的愤怒！",
+                            
+                                "你看到，你想看到的；你听到，你想听到的；你相信，你想相信的！",
+                            
+                                "你看到的，是别人想让你看到的；你听到的，是别人想让你听到的",
+                            
+                        ],
+                        // 打字前的延迟
+                        startDelay: 300,
+                        // 打字速度
+                        typeSpeed: 100,
+                        // 是否循环
+                        loop: true,
+                        // 循环时擦除速度
+                        backSpeed: 50,
+                        // 是否显示光标
+                        showCursor: true
+                    });
+                </script>
+                
             </div>
+
         </div>
     </div>
 </div>
