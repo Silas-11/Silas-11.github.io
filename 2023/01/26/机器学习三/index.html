@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="机器学习&lt;三&gt;, Silas">
-    <meta name="description" content="1 决策树1.1 决策树的基本原理​    决策树（Decision Tree）是一种分而治之的决策过程。一个困难的预测问题，通过树的分支节点，被划分成两个或多个较为简单的子集，从结构上划分为不同的子问题。将依规则分割数据集的过程不断递归下">
+    <meta name="description" content="机器学习&amp;lt;三&amp;gt;1 决策树1.1 决策树的基本原理​    决策树（Decision Tree）是一种分而治之的决策过程。一个困难的预测问题，通过树的分支节点，被划分成两个或多个较为简单的子集，从结构上划分为不同的子问题。将依规则">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -409,7 +409,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="1-决策树"><a href="#1-决策树" class="headerlink" title="1 决策树"></a>1 决策树</h2><h3 id="1-1-决策树的基本原理"><a href="#1-1-决策树的基本原理" class="headerlink" title="1.1 决策树的基本原理"></a>1.1 决策树的基本原理</h3><p>​    决策树（Decision Tree）是一种分而治之的决策过程。一个困难的预测问题，通过树的分支节点，被划分成两个或多个较为简单的子集，从结构上划分为不同的子问题。将依规则分割数据集的过程不断递归下去（Recursive Partitioning）。随着树的深度不断增加，分支节点的子集越来越小，所需要提的问题数也逐渐简化。当分支节点的深度或者问题的简单程度满足一定的停止规则（Stopping Rule）时, 该分支节点会停止分裂，此为自上而下的停止阈值（Cutoff Threshold）法；有些决策树也使用自下而上的剪枝（Pruning）法。</p>
+                <h1 id="机器学习-lt-三-gt"><a href="#机器学习-lt-三-gt" class="headerlink" title="机器学习&lt;三&gt;"></a>机器学习&lt;三&gt;</h1><h2 id="1-决策树"><a href="#1-决策树" class="headerlink" title="1 决策树"></a>1 决策树</h2><h3 id="1-1-决策树的基本原理"><a href="#1-1-决策树的基本原理" class="headerlink" title="1.1 决策树的基本原理"></a>1.1 决策树的基本原理</h3><p>​    决策树（Decision Tree）是一种分而治之的决策过程。一个困难的预测问题，通过树的分支节点，被划分成两个或多个较为简单的子集，从结构上划分为不同的子问题。将依规则分割数据集的过程不断递归下去（Recursive Partitioning）。随着树的深度不断增加，分支节点的子集越来越小，所需要提的问题数也逐渐简化。当分支节点的深度或者问题的简单程度满足一定的停止规则（Stopping Rule）时, 该分支节点会停止分裂，此为自上而下的停止阈值（Cutoff Threshold）法；有些决策树也使用自下而上的剪枝（Pruning）法。</p>
 <h3 id="1-2-决策树的三要素？"><a href="#1-2-决策树的三要素？" class="headerlink" title="1.2 决策树的三要素？"></a>1.2 决策树的三要素？</h3><p>​    一棵决策树的生成过程主要分为下3个部分：  </p>
 <p>​    1、特征选择：从训练数据中众多的特征中选择一个特征作为当前节点的分裂标准，如何选择特征有着很多不同量化评估标准，从而衍生出不同的决策树算法。 </p>
 <p>​    2、决策树生成：根据选择的特征评估标准，从上至下递归地生成子节点，直到数据集不可分则决策树停止生长。树结构来说，递归结构是最容易理解的方式。 </p>
@@ -496,60 +496,7 @@ L(\boldsymbol w, b,\boldsymbol a) =   \frac{1}{2}||\boldsymbol w||^2 + \sum_{i=1
 p^* = \frac{1}{2}||\boldsymbol w^*||^2 \geqslant  L(\boldsymbol w^*, b,\boldsymbol a) \geqslant \min_{\boldsymbol w, b} L(\boldsymbol w, b,\boldsymbol a)</script><p>则 $\min_{\boldsymbol w, b} L(\boldsymbol w, b,\boldsymbol a)$是问题（1）的一个下界。</p>
 <p>此时，取最大值即可求得好的下界，即</p>
 <script type="math/tex; mode=display">
-\max_{\alpha_i \geqslant 0} \min_{\boldsymbol w, b} L(\boldsymbol w, b,\boldsymbol a)</script><h3 id="2-6-常见的核函数有哪些"><a href="#2-6-常见的核函数有哪些" class="headerlink" title="2.6 常见的核函数有哪些"></a>2.6 常见的核函数有哪些</h3><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>核函数</th>
-<th>表达式</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Linear Kernel线性核</td>
-<td>$k(x,y)=x^{t}y+c$</td>
-<td></td>
-</tr>
-<tr>
-<td>Polynomial Kernel多项式核</td>
-<td>$k(x,y)=(ax^{t}y+c)^{d}$</td>
-<td>$d\geqslant1$为多项式的次数</td>
-</tr>
-<tr>
-<td>Exponential Kernel指数核</td>
-<td>$k(x,y)=exp(-\frac{\left \</td>
-<td>x-y \right \</td>
-<td>}{2\sigma ^{2}})$</td>
-<td>$\sigma&gt;0$</td>
-</tr>
-<tr>
-<td>Gaussian Kernel高斯核</td>
-<td>$k(x,y)=exp(-\frac{\left \</td>
-<td>x-y \right \</td>
-<td>^{2}}{2\sigma ^{2}})$</td>
-<td>$\sigma$为高斯核的带宽，$\sigma&gt;0$,</td>
-</tr>
-<tr>
-<td>Laplacian Kernel拉普拉斯核</td>
-<td>$k(x,y)=exp(-\frac{\left \</td>
-<td>x-y \right \</td>
-<td>}{\sigma})$</td>
-<td>$\sigma&gt;0$</td>
-</tr>
-<tr>
-<td>ANOVA Kernel</td>
-<td>$k(x,y)=exp(-\sigma(x^{k}-y^{k})^{2})^{d}$</td>
-<td></td>
-</tr>
-<tr>
-<td>Sigmoid Kernel</td>
-<td>$k(x,y)=tanh(ax^{t}y+c)$</td>
-<td>$tanh$为双曲正切函数，$a&gt;0,c&lt;0$</td>
-</tr>
-</tbody>
-</table>
-</div>
+\max_{\alpha_i \geqslant 0} \min_{\boldsymbol w, b} L(\boldsymbol w, b,\boldsymbol a)</script><h3 id="2-6-常见的核函数有哪些"><a href="#2-6-常见的核函数有哪些" class="headerlink" title="2.6 常见的核函数有哪些"></a>2.6 常见的核函数有哪些</h3><p><img src="https://s2.loli.net/2023/09/25/o4lMUBTCAEN3uXy.png" alt="image-20230925150258074"></p>
 <h3 id="2-7-SVM主要特点"><a href="#2-7-SVM主要特点" class="headerlink" title="2.7 SVM主要特点"></a>2.7 SVM主要特点</h3><p>特点：</p>
 <p>(1)  SVM方法的理论基础是非线性映射，SVM利用内积核函数代替向高维空间的非线性映射。<br>(2)  SVM的目标是对特征空间划分得到最优超平面，SVM方法核心是最大化分类边界。<br>(3)  支持向量是SVM的训练结果，在SVM分类决策中起决定作用的是支持向量。<br>(4)  SVM是一种有坚实理论基础的新颖的适用小样本学习方法。它基本上不涉及概率测度及大数定律等，也简化了通常的分类和回归等问题。<br>(5)  SVM的最终决策函数只由少数的支持向量所确定，计算的复杂性取决于支持向量的数目，而不是样本空间的维数，这在某种意义上避免了“维数灾难”。<br>(6)  少数支持向量决定了最终结果，这不但可以帮助我们抓住关键样本、“剔除”大量冗余样本,而且注定了该方法不但算法简单，而且具有较好的“鲁棒性”。这种鲁棒性主要体现在：<br>​        ①增、删非支持向量样本对模型没有影响;<br>​        ②支持向量样本集具有一定的鲁棒性;<br>​        ③有些成功的应用中，SVM方法对核的选取不敏感<br>(7)  SVM学习问题可以表示为凸优化问题，因此可以利用已知的有效算法发现目标函数的全局最小值。而其他分类方法（如基于规则的分类器和人工神经网络）都采用一种基于贪心学习的策略来搜索假设空间，这种方法一般只能获得局部最优解。<br>(8)  SVM通过最大化决策边界的边缘来控制模型的能力。尽管如此，用户必须提供其他参数，如使用核函数类型和引入松弛变量等。<br>(9)  SVM在小样本训练集上能够得到比其它算法好很多的结果。SVM优化目标是结构化风险最小，而不是经验风险最小，避免了过拟合问题，通过margin的概念，得到对数据分布的结构化描述，减低了对数据规模和数据分布的要求，有优秀的泛化能力。<br>(10)  它是一个凸优化问题，因此局部最优解一定是全局最优解的优点。  </p>
 <h3 id="2-8-SVM主要缺点"><a href="#2-8-SVM主要缺点" class="headerlink" title="2.8 SVM主要缺点"></a>2.8 SVM主要缺点</h3><p>(1) SVM算法对大规模训练样本难以实施<br>​        SVM的空间消耗主要是存储训练样本和核矩阵，由于SVM是借助二次规划来求解支持向量，而求解二次规划将涉及m阶矩阵的计算（m为样本的个数），当m数目很大时该矩阵的存储和计算将耗费大量的机器内存和运算时间。<br>​        如果数据量很大，SVM的训练时间就会比较长，如垃圾邮件的分类检测，没有使用SVM分类器，而是使用简单的朴素贝叶斯分类器，或者是使用逻辑回归模型分类。</p>
@@ -1288,13 +1235,13 @@ E=\sum_{i=1}^{k}\sum_{p\in C_i}\left\|p-m_i\right\|^2</script><p>　这里E是�
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/06/23/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E4%B8%80/">
+                <a href="/2023/02/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%80/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="计算机网络相关知识&lt;一&gt;">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="深度学习&lt;一&gt;">
                         
-                        <span class="card-title">计算机网络相关知识&lt;一&gt;</span>
+                        <span class="card-title">深度学习&lt;一&gt;</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1305,14 +1252,14 @@ E=\sum_{i=1}^{k}\sum_{p\in C_i}\left\|p-m_i\right\|^2</script><p>　这里E是�
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-06-23
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-02-08
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/408%E5%9F%BA%E7%A1%80/" class="post-category">
-                                    408基础
+                            <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    深度学习
                                 </a>
                             
                             
@@ -1322,8 +1269,8 @@ E=\sum_{i=1}^{k}\sum_{p\in C_i}\left\|p-m_i\right\|^2</script><p>　这里E是�
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
-                        <span class="chip bg-color">计算机网络</span>
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
                     </a>
                     
                 </div>
