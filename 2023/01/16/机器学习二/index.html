@@ -1,0 +1,1520 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="机器学习&lt;二&gt;, Silas">
+    <meta name="description" content="模型评估1 模型评估常用方法？​    一般情况来说，单一评分标准无法完全评估一个机器学习模型。只用good和bad偏离真实场景去评估某个模型，都是一种欠妥的评估方式。下面介绍常用的分类模型和回归模型评估方法。
+分类模型常用评估方法：
+
+
+">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>机器学习&lt;二&gt; | Silas</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Silas</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Silas</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">机器学习&lt;二&gt;</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/">
+                                <span class="chip bg-color">模型评估</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                机器学习
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-01-16
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="模型评估"><a href="#模型评估" class="headerlink" title="模型评估"></a>模型评估</h2><h3 id="1-模型评估常用方法？"><a href="#1-模型评估常用方法？" class="headerlink" title="1 模型评估常用方法？"></a>1 模型评估常用方法？</h3><p>​    一般情况来说，单一评分标准无法完全评估一个机器学习模型。只用good和bad偏离真实场景去评估某个模型，都是一种欠妥的评估方式。下面介绍常用的分类模型和回归模型评估方法。</p>
+<p><strong>分类模型常用评估方法：</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">指标</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Accuracy</td>
+<td style="text-align:center">准确率</td>
+</tr>
+<tr>
+<td style="text-align:center">Precision</td>
+<td style="text-align:center">精准度/查准率</td>
+</tr>
+<tr>
+<td style="text-align:center">Recall</td>
+<td style="text-align:center">召回率/查全率</td>
+</tr>
+<tr>
+<td style="text-align:center">P-R曲线</td>
+<td style="text-align:center">查准率为纵轴，查全率为横轴，作图</td>
+</tr>
+<tr>
+<td style="text-align:center">F1</td>
+<td style="text-align:center">F1值</td>
+</tr>
+<tr>
+<td style="text-align:center">Confusion Matrix</td>
+<td style="text-align:center">混淆矩阵</td>
+</tr>
+<tr>
+<td style="text-align:center">ROC</td>
+<td style="text-align:center">ROC曲线</td>
+</tr>
+<tr>
+<td style="text-align:center">AUC</td>
+<td style="text-align:center">ROC曲线下的面积</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>回归模型常用评估方法：</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">指标</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Mean Square Error (MSE, RMSE)</td>
+<td style="text-align:center">平均方差</td>
+</tr>
+<tr>
+<td style="text-align:center">Absolute Error (MAE, RAE)</td>
+<td style="text-align:center">绝对误差</td>
+</tr>
+<tr>
+<td style="text-align:center">R-Squared</td>
+<td style="text-align:center">R平方值</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="2-误差、偏差和方差有什么区别和联系"><a href="#2-误差、偏差和方差有什么区别和联系" class="headerlink" title="2 误差、偏差和方差有什么区别和联系"></a>2 误差、偏差和方差有什么区别和联系</h3><p>在机器学习中，Bias(偏差)，Error(误差)，和Variance(方差)存在以下区别和联系：</p>
+<p><strong>对于Error </strong>：</p>
+<ul>
+<li><p>误差（error）：一般地，我们把学习器的实际预测输出与样本的真是输出之间的差异称为“误差”。</p>
+</li>
+<li><p>Error = Bias + Variance + Noise，Error反映的是整个模型的准确度。</p>
+</li>
+</ul>
+<p><strong>对于Noise:</strong></p>
+<p>噪声：描述了在当前任务上任何学习算法所能达到的期望泛化误差的下界，即刻画了学习问题本身的难度。</p>
+<p><strong>对于Bias：</strong></p>
+<ul>
+<li>Bias衡量模型拟合训练数据的能力（训练数据不一定是整个 training dataset，而是只用于训练它的那一部分数据，例如：mini-batch），Bias反映的是模型在样本上的输出与真实值之间的误差，即模型本身的精准度。</li>
+<li>Bias 越小，拟合能力越高（可能产生overfitting）；反之，拟合能力越低（可能产生underfitting）。</li>
+<li>偏差越大，越偏离真实数据，如下图第二行所示。</li>
+</ul>
+<p><strong>对于Variance：</strong></p>
+<ul>
+<li><p>方差公式：$S_{N}^{2}=\frac{1}{N}\sum_{i=1}^{N}(x_{i}-\bar{x})^{2}$</p>
+</li>
+<li><p>Variance描述的是预测值的变化范围，离散程度，也就是离其期望值的距离。方差越大，数据的分布越分散，模型的稳定程度越差。</p>
+</li>
+<li>Variance反映的是模型每一次输出结果与模型输出期望之间的误差，即模型的稳定性。</li>
+<li>Variance越小，模型的泛化的能力越高；反之，模型的泛化的能力越低。</li>
+<li>如果模型在训练集上拟合效果比较优秀，但是在测试集上拟合效果比较差劣，则方差较大，说明模型的稳定程度较差，出现这种现象可能是由于模型对训练集过拟合造成的。 如下图右列所示。</li>
+</ul>
+<blockquote>
+<p><img src="https://s2.loli.net/2023/09/25/8nHMOs6RoNQtD4j.png" alt=""></p>
+</blockquote>
+<h3 id="3-经验误差与泛化误差"><a href="#3-经验误差与泛化误差" class="headerlink" title="3 经验误差与泛化误差"></a>3 经验误差与泛化误差</h3><p>经验误差（empirical error）：也叫训练误差（training error），模型在训练集上的误差。 </p>
+<p>泛化误差（generalization error）：模型在新样本集（测试集）上的误差称为“泛化误差”。</p>
+<h3 id="4-图解欠拟合、过拟合"><a href="#4-图解欠拟合、过拟合" class="headerlink" title="4 图解欠拟合、过拟合"></a>4 图解欠拟合、过拟合</h3><p>根据不同的坐标方式，欠拟合与过拟合图解不同。</p>
+<ol>
+<li><strong>横轴为训练样本数量，纵轴为误差</strong></li>
+</ol>
+<p><img src="https://s2.loli.net/2023/09/25/MB6GiZsgmI8CFbv.jpg" alt=""></p>
+<p>如上图所示，我们可以直观看出欠拟合和过拟合的区别：</p>
+<p>​    模型欠拟合：在训练集以及测试集上同时具有较高的误差，此时模型的偏差较大；</p>
+<p>​    模型过拟合：在训练集上具有较低的误差，在测试集上具有较高的误差，此时模型的方差较大。</p>
+<p>​    模型正常：在训练集以及测试集上，同时具有相对较低的偏差以及方差。</p>
+<ol>
+<li><strong>横轴为模型复杂程度，纵轴为误差</strong></li>
+</ol>
+<p><img src="https://s2.loli.net/2023/09/25/JEuHspC4TO69KQG.png" alt=""></p>
+<p>​                    红线为测试集上的Error,蓝线为训练集上的Error</p>
+<p>​    模型欠拟合：模型在点A处，在训练集以及测试集上同时具有较高的误差，此时模型的偏差较大。</p>
+<p>​    模型过拟合：模型在点C处，在训练集上具有较低的误差，在测试集上具有较高的误差，此时模型的方差较大。 </p>
+<p>​    模型正常：模型复杂程度控制在点B处为最优。</p>
+<ol>
+<li><strong>横轴为正则项系数，纵轴为误差</strong></li>
+</ol>
+<p><img src="https://s2.loli.net/2023/09/25/RgpUyM4dVrx1DF5.png" alt=""></p>
+<p>​                                             红线为测试集上的Error,蓝线为训练集上的Error</p>
+<p>​    模型欠拟合：模型在点C处，在训练集以及测试集上同时具有较高的误差，此时模型的偏差较大。</p>
+<p>​    模型过拟合：模型在点A处，在训练集上具有较低的误差，在测试集上具有较高的误差，此时模型的方差较大。 它通常发生在模型过于复杂的情况下，如参数过多等，会使得模型的预测性能变弱，并且增加数据的波动性。虽然模型在训练时的效果可以表现的很完美，基本上记住了数据的全部特点，但这种模型在未知数据的表现能力会大减折扣，因为简单的模型泛化能力通常都是很弱的。</p>
+<p>​    模型正常：模型复杂程度控制在点B处为最优。</p>
+<h3 id="5-如何解决过拟合与欠拟合"><a href="#5-如何解决过拟合与欠拟合" class="headerlink" title="5 如何解决过拟合与欠拟合"></a>5 如何解决过拟合与欠拟合</h3><p><strong>如何解决欠拟合：</strong></p>
+<ol>
+<li>添加其他特征项。组合、泛化、相关性、上下文特征、平台特征等特征是特征添加的重要手段，有时候特征项不够会导致模型欠拟合。</li>
+<li>添加多项式特征。例如将线性模型添加二次项或三次项使模型泛化能力更强。例如，FM（Factorization Machine）模型、FFM（Field-aware Factorization Machine）模型，其实就是线性模型，增加了二阶多项式，保证了模型一定的拟合程度。</li>
+<li>可以增加模型的复杂程度。</li>
+<li>减小正则化系数。正则化的目的是用来防止过拟合的，但是现在模型出现了欠拟合，则需要减少正则化参数。</li>
+</ol>
+<p><strong>如何解决过拟合：</strong></p>
+<ol>
+<li>重新清洗数据，数据不纯会导致过拟合，此类情况需要重新清洗数据。 </li>
+<li>增加训练样本数量。 </li>
+<li>降低模型复杂程度。 </li>
+<li>增大正则项系数。 </li>
+<li>采用dropout方法，dropout方法，通俗的讲就是在训练的时候让神经元以一定的概率不工作。 </li>
+<li>early stopping。 </li>
+<li>减少迭代次数。 </li>
+<li>增大学习率。 </li>
+<li>添加噪声数据。 </li>
+<li>树结构中，可以对树进行剪枝。 </li>
+<li>减少特征项。</li>
+</ol>
+<p>欠拟合和过拟合这些方法，需要根据实际问题，实际模型，进行选择。</p>
+<h3 id="6-交叉验证的主要作用"><a href="#6-交叉验证的主要作用" class="headerlink" title="6 交叉验证的主要作用"></a>6 交叉验证的主要作用</h3><p>​    为了得到更为稳健可靠的模型，对模型的泛化误差进行评估，得到模型泛化误差的近似值。当有多个模型可以选择时，我们通常选择“泛化误差”最小的模型。 </p>
+<p>​    交叉验证的方法有许多种，但是最常用的是：留一交叉验证、k折交叉验证。</p>
+<h3 id="7-理解k折交叉验证"><a href="#7-理解k折交叉验证" class="headerlink" title="7 理解k折交叉验证"></a>7 理解k折交叉验证</h3><ol>
+<li>将含有N个样本的数据集，分成K份，每份含有N/K个样本。选择其中1份作为测试集，另外K-1份作为训练集，测试集就有K种情况。 </li>
+<li>在每种情况中，用训练集训练模型，用测试集测试模型，计算模型的泛化误差。 </li>
+<li>交叉验证重复K次，每份验证一次，平均K次的结果或者使用其它结合方式，最终得到一个单一估测，得到模型最终的泛化误差。 </li>
+<li>将K种情况下，模型的泛化误差取均值，得到模型最终的泛化误差。  </li>
+<li>一般$2\leqslant K \leqslant10$。 k折交叉验证的优势在于，同时重复运用随机产生的子样本进行训练和验证，每次的结果验证一次，10折交叉验证是最常用的。 </li>
+<li>训练集中样本数量要足够多，一般至少大于总样本数的50%。 </li>
+<li>训练集和测试集必须从完整的数据集中均匀取样。均匀取样的目的是希望减少训练集、测试集与原数据集之间的偏差。当样本数量足够多时，通过随机取样，便可以实现均匀取样的效果。 </li>
+</ol>
+<h3 id="8-混淆矩阵"><a href="#8-混淆矩阵" class="headerlink" title="8 混淆矩阵"></a>8 混淆矩阵</h3><p>第一种混淆矩阵:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">真实情况T or F</th>
+<th style="text-align:left">预测为正例1，P</th>
+<th style="text-align:left">预测为负例0，N</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">本来label标记为1，预测结果真为T、假为F</td>
+<td style="text-align:left">TP(预测为1，实际为1)</td>
+<td style="text-align:left">FN(预测为0，实际为1)</td>
+</tr>
+<tr>
+<td style="text-align:center">本来label标记为0，预测结果真为T、假为F</td>
+<td style="text-align:left">FP(预测为1，实际为0)</td>
+<td style="text-align:left">TN(预测为0，实际也为0)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>第二种混淆矩阵:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">预测情况P or N</th>
+<th style="text-align:left">实际label为1,预测对了为T</th>
+<th style="text-align:left">实际label为0,预测对了为T</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">预测为正例1，P</td>
+<td style="text-align:left">TP(预测为1，实际为1)</td>
+<td style="text-align:left">FP(预测为1，实际为0)</td>
+</tr>
+<tr>
+<td style="text-align:center">预测为负例0，N</td>
+<td style="text-align:left">FN(预测为0，实际为1)</td>
+<td style="text-align:left">TN(预测为0，实际也为0)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="9-错误率及精度"><a href="#9-错误率及精度" class="headerlink" title="9 错误率及精度"></a>9 错误率及精度</h3><ol>
+<li>错误率（Error Rate）：分类错误的样本数占样本总数的比例。</li>
+<li>精度（accuracy）：分类正确的样本数占样本总数的比例。</li>
+</ol>
+<h3 id="10-查准率与查全率"><a href="#10-查准率与查全率" class="headerlink" title="10 查准率与查全率"></a>10 查准率与查全率</h3><p>将算法预测的结果分成四种情况： </p>
+<ol>
+<li>正确肯定（True Positive,TP）：预测为真，实际为真 </li>
+<li>正确否定（True Negative,TN）：预测为假，实际为假 </li>
+<li>错误肯定（False Positive,FP）：预测为真，实际为假 </li>
+<li>错误否定（False Negative,FN）：预测为假，实际为真</li>
+</ol>
+<p>则： </p>
+<p>查准率（Precision）=TP/（TP+FP）</p>
+<p><strong>理解</strong>：预测出为阳性的样本中，正确的有多少。区别准确率（正确预测出的样本，包括正确预测为阳性、阴性，占总样本比例）。<br>例，在所有我们预测有恶性肿瘤的病人中，实际上有恶性肿瘤的病人的百分比，越高越好。 </p>
+<p>查全率（Recall）=TP/（TP+FN）</p>
+<p><strong>理解</strong>：正确预测为阳性的数量占总样本中阳性数量的比例。<br>例，在所有实际上有恶性肿瘤的病人中，成功预测有恶性肿瘤的病人的百分比，越高越好。 </p>
+<h3 id="11-ROC与AUC"><a href="#11-ROC与AUC" class="headerlink" title="11 ROC与AUC"></a>11 ROC与AUC</h3><p>​    ROC全称是“受试者工作特征”（Receiver Operating Characteristic）。</p>
+<p>​    ROC曲线的面积就是AUC（Area Under Curve）。</p>
+<p>​    AUC用于衡量“二分类问题”机器学习算法性能（泛化能力）。</p>
+<p>​    ROC曲线，通过将连续变量设定出多个不同的临界值，从而计算出一系列真正率和假正率，再以假正率为横坐标、真正率为纵坐标绘制成曲线，曲线下面积越大，推断准确性越高。在ROC曲线上，最靠近坐标图左上方的点为假正率和真正率均较高的临界值。 </p>
+<p>​    对于分类器，或者说分类算法，评价指标主要有Precision，Recall，F-score。下图是一个ROC曲线的示例。</p>
+<p><img src="https://s2.loli.net/2023/09/25/RyPkAZguOo1KX75.png" alt=""></p>
+<p>ROC曲线的横坐标为False Positive Rate（FPR），纵坐标为True Positive Rate（TPR）。其中</p>
+<script type="math/tex; mode=display">
+TPR = \frac{TP}{TP+FN} ,FPR = \frac{FP}{FP+TN}</script><p>​    下面着重介绍ROC曲线图中的四个点和一条线。<br>​    第一个点(0,1)，即FPR=0, TPR=1，这意味着FN（False Negative）=0，并且FP（False Positive）=0。意味着这是一个完美的分类器，它将所有的样本都正确分类。<br>​    第二个点(1,0)，即FPR=1，TPR=0，意味着这是一个最糟糕的分类器，因为它成功避开了所有的正确答案。<br>​    第三个点(0,0)，即FPR=TPR=0，即FP（False Positive）=TP（True Positive）=0，可以发现该分类器预测所有的样本都为负样本（Negative）。<br>​    第四个点(1,1)，即FPR=TPR=1，分类器实际上预测所有的样本都为正样本。<br>​    经过以上分析，ROC曲线越接近左上角，该分类器的性能越好。</p>
+<p>​    ROC曲线所覆盖的面积称为AUC（Area Under Curve），可以更直观的判断学习器的性能，AUC越大则性能越好。  </p>
+<h3 id="12-如何画ROC曲线"><a href="#12-如何画ROC曲线" class="headerlink" title="12 如何画ROC曲线"></a>12 如何画ROC曲线</h3><p>​    下图是一个示例，图中共有20个测试样本，“Class”一栏表示每个测试样本真正的标签（p表示正样本，n表示负样本），“Score”表示每个测试样本属于正样本的概率。</p>
+<p>步骤：<br>    1、假设已经得出一系列样本被划分为正类的概率，按照大小排序。<br>    2、从高到低，依次将“Score”值作为阈值threshold，当测试样本属于正样本的概率大于或等于这个threshold时，我们认为它为正样本，否则为负样本。举例来说，对于图中的第4个样本，其“Score”值为0.6，那么样本1，2，3，4都被认为是正样本，因为它们的“Score”值都大于等于0.6，而其他样本则都认为是负样本。<br>    3、每次选取一个不同的threshold，得到一组FPR和TPR，即ROC曲线上的一点。以此共得到20组FPR和TPR的值。<br>    4、根据3、中的每个坐标点，画图。</p>
+<p><img src="https://s2.loli.net/2023/09/25/nUfh4RaKHQpB3Db.jpg" alt=""></p>
+<h3 id="13-如何计算TPR，FPR"><a href="#13-如何计算TPR，FPR" class="headerlink" title="13 如何计算TPR，FPR"></a>13 如何计算TPR，FPR</h3><p>1、分析数据<br>y_true = [0, 0, 1, 1]；scores = [0.1, 0.4, 0.35, 0.8]；<br>2、列表</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>样本</th>
+<th>预测属于P的概率(score)</th>
+<th>真实类别</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>y[0]</td>
+<td>0.1</td>
+<td>N</td>
+</tr>
+<tr>
+<td>y[1]</td>
+<td>0.4</td>
+<td>N</td>
+</tr>
+<tr>
+<td>y[2]</td>
+<td>0.35</td>
+<td>P</td>
+</tr>
+<tr>
+<td>y[3]</td>
+<td>0.8</td>
+<td>P</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>3、将截断点依次取为score值，计算TPR和FPR。<br>当截断点为0.1时：<br>说明只要score&gt;=0.1，它的预测类别就是正例。 因为4个样本的score都大于等于0.1，所以，所有样本的预测类别都为P。<br>scores = [0.1, 0.4, 0.35, 0.8]；y_true = [0, 0, 1, 1]；y_pred = [1, 1, 1, 1]；<br>正例与反例信息如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>正例</th>
+<th>反例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>正例</strong></td>
+<td>TP=2</td>
+<td>FN=0</td>
+</tr>
+<tr>
+<td><strong>反例</strong></td>
+<td>FP=2</td>
+<td>TN=0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>由此可得：<br>TPR = TP/(TP+FN) = 1； FPR = FP/(TN+FP) = 1；</p>
+<p>当截断点为0.35时：<br>scores = [0.1, 0.4, 0.35, 0.8]；y_true = [0, 0, 1, 1]；y_pred = [0, 1, 1, 1];<br>正例与反例信息如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>正例</th>
+<th>反例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>正例</strong></td>
+<td>TP=2</td>
+<td>FN=0</td>
+</tr>
+<tr>
+<td><strong>反例</strong></td>
+<td>FP=1</td>
+<td>TN=1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>由此可得：<br>TPR = TP/(TP+FN) = 1； FPR = FP/(TN+FP) = 0.5；</p>
+<p>当截断点为0.4时：<br>scores = [0.1, 0.4, 0.35, 0.8]；y_true = [0, 0, 1, 1]；y_pred = [0, 1, 0, 1]；<br>正例与反例信息如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>正例</th>
+<th>反例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>正例</strong></td>
+<td>TP=1</td>
+<td>FN=1</td>
+</tr>
+<tr>
+<td><strong>反例</strong></td>
+<td>FP=1</td>
+<td>TN=1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>由此可得：<br>TPR = TP/(TP+FN) = 0.5； FPR = FP/(TN+FP) = 0.5；</p>
+<p>当截断点为0.8时：<br>scores = [0.1, 0.4, 0.35, 0.8]；y_true = [0, 0, 1, 1]；y_pred = [0, 0, 0, 1]；</p>
+<p>正例与反例信息如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>正例</th>
+<th>反例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>正例</strong></td>
+<td>TP=1</td>
+<td>FN=1</td>
+</tr>
+<tr>
+<td><strong>反例</strong></td>
+<td>FP=0</td>
+<td>TN=2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>由此可得：<br>TPR = TP/(TP+FN) = 0.5； FPR = FP/(TN+FP) = 0；</p>
+<p>4、根据TPR、FPR值，以FPR为横轴，TPR为纵轴画图。</p>
+<h3 id="14-如何计算AUC"><a href="#14-如何计算AUC" class="headerlink" title="14 如何计算AUC"></a>14 如何计算AUC</h3><ul>
+<li>将坐标点按照横坐标FPR排序 。</li>
+<li>计算第$i$个坐标点和第$i+1$个坐标点的间距$dx$ 。 </li>
+<li>获取第$i$或者$i+1$个坐标点的纵坐标y。</li>
+<li>计算面积微元$ds=ydx$。</li>
+<li>对面积微元进行累加，得到AUC。</li>
+</ul>
+<h3 id="15-为什么使用Roc和Auc评价分类器"><a href="#15-为什么使用Roc和Auc评价分类器" class="headerlink" title="15 为什么使用Roc和Auc评价分类器"></a>15 为什么使用Roc和Auc评价分类器</h3><p>​    模型有很多评估方法，为什么还要使用ROC和AUC呢？<br>​    因为ROC曲线有个很好的特性：当测试集中的正负样本的分布变换的时候，ROC曲线能够保持不变。在实际的数据集中经常会出现样本类不平衡，即正负样本比例差距较大，而且测试数据中的正负样本也可能随着时间变化。</p>
+<h3 id="16-直观理解AUC"><a href="#16-直观理解AUC" class="headerlink" title="16 直观理解AUC"></a>16 直观理解AUC</h3><p>​    下图展现了三种AUC的值： </p>
+<p><img src="https://s2.loli.net/2023/09/25/hzEIHsuWdgfVJlr.png" alt=""></p>
+<p>​    AUC是衡量二分类模型优劣的一种评价指标，表示正例排在负例前面的概率。其他评价指标有精确度、准确率、召回率，而AUC比这三者更为常用。<br>​    一般在分类模型中，预测结果都是以概率的形式表现，如果要计算准确率，通常都会手动设置一个阈值来将对应的概率转化成类别，这个阈值也就很大程度上影响了模型准确率的计算。<br>​    举例：<br>​    现在假设有一个训练好的二分类器对10个正负样本（正例5个，负例5个）预测，得分按高到低排序得到的最好预测结果为[1, 1, 1, 1, 1, 0, 0, 0, 0, 0]，即5个正例均排在5个负例前面，正例排在负例前面的概率为100%。然后绘制其ROC曲线，由于是10个样本，除去原点我们需要描10个点，如下：</p>
+<p><img src="https://s2.loli.net/2023/09/25/1IuFx56C3bypTlU.png" alt=""></p>
+<p>​    描点方式按照样本预测结果的得分高低从左至右开始遍历。从原点开始，每遇到1便向y轴正方向移动y轴最小步长1个单位，这里是1/5=0.2；每遇到0则向x轴正方向移动x轴最小步长1个单位，这里也是0.2。不难看出，上图的AUC等于1，印证了正例排在负例前面的概率的确为100%。</p>
+<p>​    假设预测结果序列为[1, 1, 1, 1, 0, 1, 0, 0, 0, 0]。</p>
+<p><img src="https://s2.loli.net/2023/09/25/ImWRFgZdBKXbsGw.png" alt=""></p>
+<p>​    计算上图的AUC为0.96与计算正例与排在负例前面的概率0.8 × 1 + 0.2 × 0.8 = 0.96相等，而左上角阴影部分的面积则是负例排在正例前面的概率0.2 × 0.2 = 0.04。</p>
+<p>​    假设预测结果序列为[1, 1, 1, 0, 1, 0, 1, 0, 0, 0]。</p>
+<p><img src="https://s2.loli.net/2023/09/25/zdWPD4aiXsHnU5f.png" alt=""></p>
+<p>​    计算上图的AUC为0.88与计算正例与排在负例前面的概率0.6 × 1 + 0.2 × 0.8 + 0.2 × 0.6 = 0.88相等，左上角阴影部分的面积是负例排在正例前面的概率0.2 × 0.2 × 3 = 0.12。</p>
+<h3 id="17-代价敏感错误率与代价曲线"><a href="#17-代价敏感错误率与代价曲线" class="headerlink" title="17 代价敏感错误率与代价曲线"></a>17 代价敏感错误率与代价曲线</h3><p>不同的错误会产生不同代价。以二分法为例，设置代价矩阵如下：</p>
+<p><img src="https://s2.loli.net/2023/09/25/s4KtQRVBGZHXEW3.png" alt=""></p>
+<p>当判断正确的时候，值为0，不正确的时候，分别为$Cost_{01}$和$Cost_{10}$ 。</p>
+<p>$Cost_{10}$:表示实际为反例但预测成正例的代价。</p>
+<p>$Cost_{01}$:表示实际为正例但是预测为反例的代价。</p>
+<p><strong>代价敏感错误率</strong>=样本中由模型得到的错误值与代价乘积之和 / 总样本。<br>其数学表达式为：</p>
+<script type="math/tex; mode=display">
+E(f;D;cost)=\frac{1}{m}\left( \sum_{x_{i} \in D^{+}}({f(x_i)\neq y_i})\times Cost_{01}+ \sum_{x_{i} \in D^{-}}({f(x_i)\neq y_i})\times Cost_{10}\right)</script><p>$D^{+}、D^{-}$分别代表样例集的正例子集和反例子集，x是预测值，y是真实值。</p>
+<p><strong>代价曲线</strong>：<br>    在均等代价时，ROC曲线不能直接反应出模型的期望总体代价，而代价曲线可以。<br>代价曲线横轴为[0,1]的正例函数代价：</p>
+<script type="math/tex; mode=display">
+P(+)Cost=\frac{p*Cost_{01}}{p*Cost_{01}+(1-p)*Cost_{10}}</script><p>其中p是样本为正例的概率。</p>
+<p>代价曲线纵轴维[0,1]的归一化代价：</p>
+<script type="math/tex; mode=display">
+Cost_{norm}=\frac{FNR*p*Cost_{01}+FNR*(1-p)*Cost_{10}}{p*Cost_{01}+(1-p)*Cost_{10}}</script><p>其中FPR为假阳率，FNR=1-TPR为假阴率。</p>
+<p>注：ROC每个点，对应代价平面上一条线。</p>
+<p>例如，ROC上(TPR,FPR),计算出FNR=1-TPR，在代价平面上绘制一条从(0,FPR)到(1,FNR)的线段，面积则为该条件下期望的总体代价。所有线段下界面积，所有条件下学习器的期望总体代价。</p>
+<p><img src="https://s2.loli.net/2023/09/25/DZKugLjeVxlh9WT.png" alt=""></p>
+<h3 id="18-模型有哪些比较检验方法"><a href="#18-模型有哪些比较检验方法" class="headerlink" title="18 模型有哪些比较检验方法"></a>18 模型有哪些比较检验方法</h3><p>正确性分析：模型稳定性分析，稳健性分析，收敛性分析，变化趋势分析，极值分析等。<br>有效性分析：误差分析，参数敏感性分析，模型对比检验等。<br>有用性分析：关键数据求解，极值点，拐点，变化趋势分析，用数据验证动态模拟等。<br>高效性分析：时空复杂度分析与现有进行比较等。</p>
+<h3 id="19-为什么使用标准差"><a href="#19-为什么使用标准差" class="headerlink" title="19 为什么使用标准差"></a>19 为什么使用标准差</h3><p>方差公式为：$S^2_{N}=\frac{1}{N}\sum_{i=1}^{N}(x_{i}-\bar{x})^{2}$</p>
+<p>标准差公式为：$S_{N}=\sqrt{\frac{1}{N}\sum_{i=1}^{N}(x_{i}-\bar{x})^{2}}$</p>
+<p>样本标准差公式为：$S_{N}=\sqrt{\frac{1}{N-1}\sum_{i=1}^{N}(x_{i}-\bar{x})^{2}}$</p>
+<p>与方差相比，使用标准差来表示数据点的离散程度有3个好处：<br>1、表示离散程度的数字与样本数据点的数量级一致，更适合对数据样本形成感性认知。</p>
+<p>2、表示离散程度的数字单位与样本数据的单位一致，更方便做后续的分析运算。</p>
+<p>3、在样本数据大致符合正态分布的情况下，标准差具有方便估算的特性：68%的数据点落在平均值前后1个标准差的范围内、95%的数据点落在平均值前后2个标准差的范围内，而99%的数据点将会落在平均值前后3个标准差的范围内。</p>
+<h3 id="20-类别不平衡产生原因"><a href="#20-类别不平衡产生原因" class="headerlink" title="20 类别不平衡产生原因"></a>20 类别不平衡产生原因</h3><p>​    类别不平衡（class-imbalance）是指分类任务中不同类别的训练样例数目差别很大的情况。 </p>
+<p>产生原因：</p>
+<p>​    分类学习算法通常都会假设不同类别的训练样例数目基本相同。如果不同类别的训练样例数目差别很大，则会影响学习结果，测试结果变差。例如二分类问题中有998个反例，正例有2个，那学习方法只需返回一个永远将新样本预测为反例的分类器，就能达到99.8%的精度；然而这样的分类器没有价值。</p>
+<h3 id="21-常见的类别不平衡问题解决方法"><a href="#21-常见的类别不平衡问题解决方法" class="headerlink" title="21 常见的类别不平衡问题解决方法"></a>21 常见的类别不平衡问题解决方法</h3><p>  防止类别不平衡对学习造成的影响，在构建分类模型之前，需要对分类不平衡性问题进行处理。主要解决方法有：</p>
+<p>1、扩大数据集</p>
+<p>​    增加包含小类样本数据的数据，更多的数据能得到更多的分布信息。</p>
+<p>2、对大类数据欠采样</p>
+<p>​    减少大类数据样本个数，使与小样本个数接近。<br>​    缺点：欠采样操作时若随机丢弃大类样本，可能会丢失重要信息。<br>​    代表算法：EasyEnsemble。其思想是利用集成学习机制，将大类划分为若干个集合供不同的学习器使用。相当于对每个学习器都进行欠采样，但对于全局则不会丢失重要信息。</p>
+<p>3、对小类数据过采样</p>
+<p>​    过采样：对小类的数据样本进行采样来增加小类的数据样本个数。 </p>
+<p>​    代表算法：SMOTE和ADASYN。 </p>
+<p>​    SMOTE：通过对训练集中的小类数据进行插值来产生额外的小类样本数据。</p>
+<p>​    新的少数类样本产生的策略：对每个少数类样本a，在a的最近邻中随机选一个样本b，然后在a、b之间的连线上随机选一点作为新合成的少数类样本。<br>​    ADASYN：根据学习难度的不同，对不同的少数类别的样本使用加权分布，对于难以学习的少数类的样本，产生更多的综合数据。 通过减少类不平衡引入的偏差和将分类决策边界自适应地转移到困难的样本两种手段，改善了数据分布。</p>
+<p>4、使用新评价指标</p>
+<p>​    如果当前评价指标不适用，则应寻找其他具有说服力的评价指标。比如准确度这个评价指标在类别不均衡的分类任务中并不适用，甚至进行误导。因此在类别不均衡分类任务中，需要使用更有说服力的评价指标来对分类器进行评价。</p>
+<p>5、选择新算法</p>
+<p>​    不同的算法适用于不同的任务与数据，应该使用不同的算法进行比较。</p>
+<p>6、数据代价加权</p>
+<p>​    例如当分类任务是识别小类，那么可以对分类器的小类样本数据增加权值，降低大类样本的权值，从而使得分类器将重点集中在小类样本身上。</p>
+<p>7、转化问题思考角度</p>
+<p>​    例如在分类问题时，把小类的样本作为异常点，将问题转化为异常点检测或变化趋势检测问题。 异常点检测即是对那些罕见事件进行识别。变化趋势检测区别于异常点检测在于其通过检测不寻常的变化趋势来识别。    </p>
+<p>8、将问题细化分析</p>
+<p>​    对问题进行分析与挖掘，将问题划分成多个更小的问题，看这些小问题是否更容易解决。 </p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Silas</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://example.com/2023/01/16/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%BA%8C/">http://example.com/2023/01/16/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%BA%8C/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Silas</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/">
+                                    <span class="chip bg-color">模型评估</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2023/01/26/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%89/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="机器学习&lt;三&gt;">
+                        
+                        <span class="card-title">机器学习&lt;三&gt;</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-01-26
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    机器学习
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">常见算法</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/01/13/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%80/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="机器学习&lt;一&gt;">
+                        
+                        <span class="card-title">机器学习&lt;一&gt;</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-01-13
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    机器学习
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+                        <span class="chip bg-color">基础知识</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2023</span>
+            
+            <a href="/about" target="_blank">Silas</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
